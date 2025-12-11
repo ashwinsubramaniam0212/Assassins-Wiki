@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AC Wiki - Assassin's Creed Universe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-red: #C8102E;
+            --dark-red: #9E0C24;
+            --light-red: #E6485F;
+            --bg-dark: #0A0E12;
+            --bg-card: #151920;
+            --bg-elevated: #1E252E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B8BEC7;
+            --text-muted: #6B7280;
+            --border-default: #2D3748;
+            --border-hover: #3D4758;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            height: 72px;
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border-default);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+            background: rgba(10, 14, 18, 0.95);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--brand-red);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--brand-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .search-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-icon:hover {
+            color: var(--brand-red);
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 600px;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-elevated) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 96px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(200,16,46,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--light-red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .search-bar {
+            width: 500px;
+            height: 56px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-default);
+            border-radius: 8px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .search-bar:focus-within {
+            border-color: var(--brand-red);
+            box-shadow: 0 0 0 3px rgba(200,16,46,0.3);
+            transform: translateY(-2px);
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Section */
+        .section {
+            max-width: 1344px;
+            margin: 0 auto;
+            padding: 64px 48px;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .section-header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-header .divider {
+            width: 80px;
+            height: 3px;
+            background: var(--brand-red);
+            margin-bottom: 12px;
+            transition: width 0.6s ease;
+        }
+
+        .section-header.visible .divider {
+            width: 120px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+        }
+
+        /* Game Card */
+        .game-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-default);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .game-card.visible {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .game-card:hover {
+            border-color: var(--brand-red);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1px rgba(200,16,46,0.2);
+            transform: translateY(-4px);
+        }
+
+        .game-card-image {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--border-default) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .game-card:hover .game-card-image {
+            transform: scale(1.05);
+        }
+
+        .bookmark-icon {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .bookmark-icon:hover {
+            background: rgba(200,16,46,0.3);
+            transform: scale(1.1);
+        }
+
+        .bookmark-icon.active {
+            background: rgba(200,16,46,0.4);
+        }
+
+        .bookmark-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-secondary);
+            fill: none;
+            transition: all 0.3s ease;
+        }
+
+        .bookmark-icon:hover svg,
+        .bookmark-icon.active svg {
+            stroke: var(--brand-red);
+        }
+
+        .bookmark-icon.active svg {
+            fill: var(--brand-red);
+        }
+
+        .game-card-content {
+            padding: 20px;
+        }
+
+        .game-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .game-card-date {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: var(--brand-red);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .game-card-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            background: var(--brand-red);
+            color: var(--text-primary);
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(200,16,46,0.3);
+        }
+
+        .cta-button:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-default);
+            padding: 48px;
+            margin-top: 64px;
+        }
+
+        .footer-content {
+            max-width: 1344px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 48px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: var(--brand-red);
+            transform: translateX(4px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-default);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 16px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                height: 480px;
+                padding: 48px 16px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+
+            .section {
+                padding: 48px 16px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo">AC WIKI</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="characters.html">Characters</a></li>
+            <li><a href="timeline.html">Timeline</a></li>
+        </ul>
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Explore the Assassin's Creed Universe</h1>
+            <p>Discover games, characters, and the complete historical timeline</p>
+            <div class="search-bar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input id="search-input" type="text" placeholder="Search games, characters, events...">
+            </div>
+            <!-- search results container (added from index file) -->
+            <div id="search-results" class="search-results" role="listbox" aria-label="Search results"></div>
+            <button class="cta-button">Explore Now</button>
+        </div>
+    </section>
+
+    <!-- Featured Games Section -->
+    <section class="section">
+        <div class="section-header" id="games-header">
+            <h2>Featured Games</h2>
+            <div class="divider"></div>
+            <p>Journey through the most iconic titles in the franchise</p>
+        </div>
+        <div class="card-grid" id="games-grid">
+            <div class="game-card">
+                <div class="game-card-image">
+                    <div class="bookmark-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="game-card-content">
+                    <h3 class="game-card-title">Assassin's Creed Valhalla</h3>
+                    <div class="game-card-date">November 10, 2020</div>
+                    <div class="tags">
+                        <span class="tag">Action RPG</span>
+                        <span class="tag">Open World</span>
+                        <span class="tag">Viking Era</span>
+                    </div>
+                    <p class="game-card-desc">Become Eivor, a legendary Viking raider on a quest for glory. Explore England's Dark Ages as you raid enemies, grow your settlement, and build your political power.</p>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-card-image">
+                    <div class="bookmark-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="game-card-content">
+                    <h3 class="game-card-title">Assassin's Creed Odyssey</h3>
+                    <div class="game-card-date">October 5, 2018</div>
+                    <div class="tags">
+                        <span class="tag">Action RPG</span>
+                        <span class="tag">Ancient Greece</span>
+                        <span class="tag">Mythology</span>
+                    </div>
+                    <p class="game-card-desc">Write your own epic odyssey and become a legendary Greek hero. Choose your path and explore a living open world filled with mythological creatures and ancient wonders.</p>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-card-image">
+                    <div class="bookmark-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="game-card-content">
+                    <h3 class="game-card-title">Assassin's Creed Origins</h3>
+                    <div class="game-card-date">October 27, 2017</div>
+                    <div class="tags">
+                        <span class="tag">Action RPG</span>
+                        <span class="tag">Ancient Egypt</span>
+                        <span class="tag">Origins Story</span>
+                    </div>
+                    <p class="game-card-desc">Experience the origin story of the Assassins Brotherhood. Explore Ancient Egypt during Cleopatra's reign and uncover the secrets behind the formation of the Creed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>AC WIKI</h3>
+                <p style="color: var(--text-secondary); margin-top: 16px;">Your comprehensive guide to the Assassin's Creed universe.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="games.html">Games</a></li>
+                    <li><a href="characters.html">Characters</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Wiki Guide</a></li>
+                    <li><a href="#">Lore Database</a></li>
+                    <li><a href="#">Fan Art</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#">Discord</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Reddit</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2024 AC Wiki. Fan-made project. Not affiliated with Ubisoft.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button (added from index file) -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <!-- External JS files from index file -->
+    <script src="js/data-loader.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.section-header, .game-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Bookmark functionality
+        document.querySelectorAll('.bookmark-icon').forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                icon.classList.toggle('active');
+                
+                // Add bounce animation
+                icon.style.animation = 'none';
+                setTimeout(() => {
+                    icon.style.animation = 'bounce 0.5s ease';
+                }, 10);
+            });
+        });
+
+        // Add bounce animation keyframes dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: scale(1); }
+                25% { transform: scale(1.2); }
+                50% { transform: scale(0.9); }
+                75% { transform: scale(1.1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Card click effect
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Search bar focus animation
+        const searchBar = document.querySelector('.search-bar');
+        const searchInput = searchBar.querySelector('input');
+        
+        searchInput.addEventListener('focus', () => {
+            searchBar.style.width = '550px';
+        });
+        
+        searchInput.addEventListener('blur', () => {
+            if (!searchInput.value) {
+                searchBar.style.width = '500px';
+            }
+        });
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < 600) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / 600);
+            }
+        });
+    </script>
+</body>
+</html>
