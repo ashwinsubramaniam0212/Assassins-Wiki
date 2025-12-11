@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Game Details - Assassin's Creed Wiki</title>
+    <meta id="page-description" name="description" content="Detailed information about an Assassin's Creed game.">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">AC Wiki</a>
+            </div>
+            
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="games.html" class="nav-link active">Games</a></li>
+                <li><a href="characters.html" class="nav-link">Characters</a></li>
+                <li><a href="timeline.html" class="nav-link">Timeline</a></li>
+            </ul>
+            
+            <div class="search-container">
+                <input 
+                    type="search" 
+                    id="search-input" 
+                    class="search-input" 
+                    placeholder="Search games or characters..."
+                    aria-label="Search"
+                >
+                <div id="search-results" class="search-results" role="listbox" aria-label="Search results"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <div id="game-content">
+            <!-- Content will be loaded by JavaScript -->
+            <div class="loading-page">Loading game details...</div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AC Wiki - Fan Project. Not affiliated with Ubisoft.</p>
+            <p class="footer-note">All content is for educational purposes. Assassin's Creed is a trademark of Ubisoft.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <!-- JavaScript Files -->
+    <script src="js/data-loader.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/bookmarks.js"></script>
+    <script>
+        // Get game ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameId = urlParams.get('id');
+        
+        if (!gameId) {
+            document.getElementById('game-content').innerHTML = `
+                <div class="container error-container">
+                    <h1>Game Not Found</h1>
+                    <p>No game ID provided. <a href="games.html">View all games</a></p>
+                </div>
+            `;
+        } else {
+            // Load game data
+            loadData()
+                .then(data => {
+                    const game = data.games.find(g => g.id === gameId);
+                    
+                    if (!game) {
+                        document.getElementById('game-content').innerHTML = `
+                            <div class="container error-container">
+                                <h1>Game Not Found</h1>
+                                <p>Could not find game with ID: ${gameId}</p>
+                                <a href="games.html" class="btn">View All Games</a>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    // Update page metadata
+                    document.getElementById('page-title').textContent = `${game.title} - AC Wiki`;
+                    document.getElementById('page-description').setAttribute('content', game.description);
+                    
+                    // Find related characters
+                    const relatedCharacters = data.characters.filter(c => c.gameId === gameId);
+                    
+                    // Render game detail
+                    document.getElementById('game-content').innerHTML = renderGameDetail(game, relatedCharacters);
+                    
+                    // Set up bookmark button
+                    const bookmarkBtn = document.getElementById('bookmark-btn');
+                    const isBookmarked = isGameBookmarked(gameId);
+                    updateBookmarkButton(bookmarkBtn, isBookmarked);
+                    
+                    bookmarkBtn.addEventListener('click', () => {
+                        if (isGameBookmarked(gameId)) {
+                            removeBookmark(gameId);
+                            updateBookmarkButton(bookmarkBtn, false);
+                        } else {
+                            addBookmark(gameId, 'game');
+                            updateBookmarkButton(bookmarkBtn, true);
+                        }
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('game-content').innerHTML = `
+                        <div class="container error-container">
+                            <h1>Error Loading Game</h1>
+                            <p>Please try again later.</p>
+                        </div>
+                    `;
+                });
+        }
+        
+        // Update bookmark button appearance
+        function updateBookmarkButton(btn, isBookmarked) {
+            if (isBookmarked) {
+                btn.textContent = '★ Bookmarked';
+                btn.classList.add('bookmarked');
+            } else {
+                btn.textContent = '☆ Bookmark';
+                btn.classList.remove('bookmarked');
+            }
+        }
+    </script>
+</body>
+</html>
