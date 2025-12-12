@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Game Details - Assassin's Creed Wiki</title>
     <meta id="page-description" name="description" content="Detailed information about an Assassin's Creed game.">
-    
-    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- Skip to main content link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Navigation Bar -->
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container nav-container">
             <div class="nav-brand">
@@ -46,15 +42,12 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main id="main-content" role="main">
         <div id="game-content">
-            <!-- Content will be loaded by JavaScript -->
             <div class="loading-page">Loading game details...</div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 AC Wiki - Fan Project. Not affiliated with Ubisoft.</p>
@@ -62,17 +55,14 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
 
-    <!-- JavaScript Files -->
     <script src="js/data-loader.js"></script>
     <script src="js/render.js"></script>
     <script src="js/search.js"></script>
     <script src="js/nav.js"></script>
     <script src="js/bookmarks.js"></script>
     <script>
-        // Get game ID from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
         const gameId = urlParams.get('id');
         
@@ -84,7 +74,6 @@
                 </div>
             `;
         } else {
-            // Load game data
             loadData()
                 .then(data => {
                     const game = data.games.find(g => g.id === gameId);
@@ -100,17 +89,13 @@
                         return;
                     }
                     
-                    // Update page metadata
                     document.getElementById('page-title').textContent = `${game.title} - AC Wiki`;
                     document.getElementById('page-description').setAttribute('content', game.description);
                     
-                    // Find related characters
                     const relatedCharacters = data.characters.filter(c => c.gameId === gameId);
                     
-                    // Render game detail
                     document.getElementById('game-content').innerHTML = renderGameDetail(game, relatedCharacters);
                     
-                    // Set up bookmark button
                     const bookmarkBtn = document.getElementById('bookmark-btn');
                     const isBookmarked = isGameBookmarked(gameId);
                     updateBookmarkButton(bookmarkBtn, isBookmarked);
@@ -135,7 +120,6 @@
                 });
         }
         
-        // Update bookmark button appearance
         function updateBookmarkButton(btn, isBookmarked) {
             if (isBookmarked) {
                 btn.textContent = '★ Bookmarked';
