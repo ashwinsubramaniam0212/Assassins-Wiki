@@ -1,41 +1,21 @@
-/**
- * MAIN MODULE
- * Entry point that initializes all functionality
- */
-
-// Run when DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize navigation
     initNav();
-    
-    // Initialize search
     initSearch();
-    
-    // Initialize back to top button
     initBackToTop();
     
-    // Load homepage content if on index.html
     if (isHomePage()) {
         loadHomePage();
     }
 });
 
-/**
- * Check if current page is the homepage
- * @returns {boolean} True if on homepage
- */
 function isHomePage() {
     var currentPage = window.location.pathname.split('/').pop();
     return currentPage === 'index.html' || currentPage === '';
 }
 
-/**
- * Load content for the homepage
- */
 function loadHomePage() {
     loadData()
         .then(function(data) {
-            // Display featured games (first 6 games)
             var featuredGames = data.games.slice(0, 6);
             var gamesContainer = document.getElementById('featured-games');
             
@@ -45,7 +25,6 @@ function loadHomePage() {
                 }).join('');
             }
             
-            // Update stats
             updateStats(data);
         })
         .catch(function(error) {
@@ -57,10 +36,6 @@ function loadHomePage() {
         });
 }
 
-/**
- * Update the statistics section
- * @param {Object} data - The full data object
- */
 function updateStats(data) {
     var totalGames = document.getElementById('total-games');
     var totalCharacters = document.getElementById('total-characters');
@@ -79,9 +54,6 @@ function updateStats(data) {
     }
 }
 
-/**
- * Initialize back to top button
- */
 function initBackToTop() {
     var backToTopBtn = document.getElementById('back-to-top');
     
@@ -89,7 +61,6 @@ function initBackToTop() {
         return;
     }
     
-    // Show/hide button based on scroll position
     window.addEventListener('scroll', function() {
         if (window.pageYOffset > 300) {
             backToTopBtn.classList.add('visible');
@@ -98,7 +69,6 @@ function initBackToTop() {
         }
     });
     
-    // Scroll to top when clicked
     backToTopBtn.addEventListener('click', function() {
         window.scrollTo({
             top: 0,
@@ -106,7 +76,6 @@ function initBackToTop() {
         });
     });
     
-    // Keyboard accessibility
     backToTopBtn.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -118,11 +87,6 @@ function initBackToTop() {
     });
 }
 
-/**
- * Handle image loading errors
- * This can be called from onerror attributes in HTML
- * @param {HTMLImageElement} img - The image element that failed to load
- */
 function handleImageError(img) {
     img.src = 'https://via.placeholder.com/300x200?text=Image+Not+Available';
     img.alt = 'Placeholder image';
