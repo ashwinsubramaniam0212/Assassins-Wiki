@@ -6,16 +6,13 @@
     <title>All Games - Assassin's Creed Wiki</title>
     <meta name="description" content="Browse all Assassin's Creed games with detailed information about each title in the series.">
     
-    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- Skip to main content link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Navigation Bar -->
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container nav-container">
             <div class="nav-brand">
@@ -46,9 +43,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main id="main-content" role="main">
-        <!-- Page Header -->
         <header class="page-header">
             <div class="container">
                 <h1>All Games</h1>
@@ -56,14 +51,12 @@
             </div>
         </header>
 
-        <!-- Filter Section -->
         <section class="section">
             <div class="container">
                 <div class="filter-bar">
                     <label for="year-filter">Filter by Year:</label>
                     <select id="year-filter" class="filter-select">
                         <option value="all">All Years</option>
-                        <!-- Options will be populated by JavaScript -->
                     </select>
                     
                     <label for="sort-select">Sort by:</label>
@@ -76,18 +69,15 @@
             </div>
         </section>
 
-        <!-- Games Grid -->
         <section class="section">
             <div class="container">
                 <div id="games-container" class="games-grid">
-                    <!-- Games will be loaded here by JavaScript -->
                     <div class="loading">Loading games...</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 AC Wiki - Fan Project. Not affiliated with Ubisoft.</p>
@@ -95,26 +85,21 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
 
-    <!-- JavaScript Files -->
     <script src="js/data-loader.js"></script>
     <script src="js/render.js"></script>
     <script src="js/search.js"></script>
     <script src="js/nav.js"></script>
     <script>
-        // Page-specific JavaScript for games.html
         let allGames = [];
         
-        // Load and display games
         loadData()
             .then(data => {
                 allGames = data.games;
                 populateYearFilter(allGames);
                 displayGames(allGames);
                 
-                // Set up filter and sort listeners
                 document.getElementById('year-filter').addEventListener('change', filterAndSort);
                 document.getElementById('sort-select').addEventListener('change', filterAndSort);
             })
@@ -123,7 +108,6 @@
                     '<p class="error">Error loading games. Please refresh the page.</p>';
             });
         
-        // Populate year filter dropdown
         function populateYearFilter(games) {
             const years = [...new Set(games.map(g => g.year))].sort((a, b) => b - a);
             const select = document.getElementById('year-filter');
@@ -136,18 +120,15 @@
             });
         }
         
-        // Filter and sort games
         function filterAndSort() {
             const yearFilter = document.getElementById('year-filter').value;
             const sortBy = document.getElementById('sort-select').value;
             
-            // Filter by year
             let filtered = allGames;
             if (yearFilter !== 'all') {
                 filtered = allGames.filter(g => g.year == yearFilter);
             }
             
-            // Sort
             let sorted = [...filtered];
             if (sortBy === 'year-desc') {
                 sorted.sort((a, b) => b.year - a.year);
@@ -160,7 +141,6 @@
             displayGames(sorted);
         }
         
-        // Display games in grid
         function displayGames(games) {
             const container = document.getElementById('games-container');
             
