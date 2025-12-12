@@ -6,16 +6,14 @@
     <title>Characters - Assassin's Creed Wiki</title>
     <meta name="description" content="Explore all characters from the Assassin's Creed series, from legendary assassins to memorable allies and enemies.">
     
-    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- Skip to main content link -->
+
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Navigation Bar -->
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container nav-container">
             <div class="nav-brand">
@@ -46,9 +44,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main id="main-content" role="main">
-        <!-- Page Header -->
         <header class="page-header">
             <div class="container">
                 <h1>Characters</h1>
@@ -56,14 +52,12 @@
             </div>
         </header>
 
-        <!-- Filter Section -->
         <section class="section">
             <div class="container">
                 <div class="filter-bar">
                     <label for="game-filter">Filter by Game:</label>
                     <select id="game-filter" class="filter-select">
                         <option value="all">All Games</option>
-                        <!-- Options will be populated by JavaScript -->
                     </select>
                     
                     <label for="role-filter">Filter by Role:</label>
@@ -77,18 +71,15 @@
             </div>
         </section>
 
-        <!-- Characters Grid -->
         <section class="section">
             <div class="container">
                 <div id="characters-container" class="characters-grid">
-                    <!-- Characters will be loaded here by JavaScript -->
                     <div class="loading">Loading characters...</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 AC Wiki - Fan Project. Not affiliated with Ubisoft.</p>
@@ -96,20 +87,16 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
 
-    <!-- JavaScript Files -->
     <script src="js/data-loader.js"></script>
     <script src="js/render.js"></script>
     <script src="js/search.js"></script>
     <script src="js/nav.js"></script>
     <script>
-        // Page-specific JavaScript for characters.html
         let allCharacters = [];
         let allGames = [];
         
-        // Load and display characters
         loadData()
             .then(data => {
                 allCharacters = data.characters;
@@ -118,7 +105,6 @@
                 populateGameFilter(data.games);
                 displayCharacters(allCharacters);
                 
-                // Set up filter listeners
                 document.getElementById('game-filter').addEventListener('change', filterCharacters);
                 document.getElementById('role-filter').addEventListener('change', filterCharacters);
             })
@@ -127,7 +113,6 @@
                     '<p class="error">Error loading characters. Please refresh the page.</p>';
             });
         
-        // Populate game filter dropdown
         function populateGameFilter(games) {
             const select = document.getElementById('game-filter');
             
@@ -139,19 +124,16 @@
             });
         }
         
-        // Filter characters
         function filterCharacters() {
             const gameFilter = document.getElementById('game-filter').value;
             const roleFilter = document.getElementById('role-filter').value;
             
             let filtered = allCharacters;
             
-            // Filter by game
             if (gameFilter !== 'all') {
                 filtered = filtered.filter(c => c.gameId === gameFilter);
             }
             
-            // Filter by role
             if (roleFilter !== 'all') {
                 filtered = filtered.filter(c => c.role === roleFilter);
             }
@@ -159,7 +141,6 @@
             displayCharacters(filtered);
         }
         
-        // Display characters in grid
         function displayCharacters(characters) {
             const container = document.getElementById('characters-container');
             
@@ -168,7 +149,6 @@
                 return;
             }
             
-            // Get game titles for displaying with characters
             const gameMap = {};
             allGames.forEach(g => {
                 gameMap[g.id] = g.title;
