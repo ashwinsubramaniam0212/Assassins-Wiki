@@ -1,13 +1,4 @@
-/* ========================================
-   RESPONSIVE DESIGN
-   Mobile First Approach
-   ======================================== */
-
-/* ========================================
-   TABLET (768px and up)
-   ======================================== */
 @media (max-width: 768px) {
-    /* Navigation */
     .nav-toggle {
         display: block;
     }
@@ -41,7 +32,6 @@
         width: 100%;
     }
     
-    /* Hero */
     .hero-title {
         font-size: var(--font-2xl);
     }
@@ -50,7 +40,6 @@
         font-size: var(--font-medium);
     }
     
-    /* Game Detail */
     .game-detail-hero {
         height: 250px;
         padding: var(--spacing-md);
@@ -64,7 +53,6 @@
         grid-template-columns: 1fr;
     }
     
-    /* Timeline */
     .timeline::before {
         left: 20px;
     }
@@ -88,12 +76,10 @@
         border-color: transparent var(--color-white) transparent transparent !important;
     }
     
-    /* Stats Grid */
     .stats-grid {
         grid-template-columns: 1fr;
     }
     
-    /* Filter Bar */
     .filter-bar {
         flex-direction: column;
         align-items: stretch;
@@ -104,33 +90,25 @@
     }
 }
 
-/* ========================================
-   MOBILE (576px and below)
-   ======================================== */
 @media (max-width: 576px) {
-    /* Base Typography */
     :root {
-        --font-2xl: 2rem;       /* 32px */
-        --font-xl: 1.5rem;      /* 24px */
-        --font-large: 1.125rem; /* 18px */
+        --font-2xl: 2rem;
+        --font-xl: 1.5rem;
+        --font-large: 1.125rem;
     }
     
-    /* Container */
     .container {
         padding: 0 var(--spacing-sm);
     }
     
-    /* Games Grid */
     .games-grid {
         grid-template-columns: 1fr;
     }
     
-    /* Characters Grid */
     .characters-grid {
         grid-template-columns: 1fr;
     }
     
-    /* Hero */
     .hero {
         padding: var(--spacing-xl) 0;
     }
@@ -139,7 +117,6 @@
         font-size: var(--font-xl);
     }
     
-    /* Page Header */
     .page-header {
         padding: var(--spacing-lg) 0;
     }
@@ -148,12 +125,10 @@
         font-size: var(--font-xl);
     }
     
-    /* Section */
     .section {
         padding: var(--spacing-lg) 0;
     }
     
-    /* Game Detail */
     .game-detail-hero {
         height: 200px;
     }
@@ -162,7 +137,6 @@
         padding: var(--spacing-md);
     }
     
-    /* Back to Top Button */
     .back-to-top {
         bottom: 20px;
         right: 20px;
@@ -171,25 +145,20 @@
         font-size: var(--font-large);
     }
     
-    /* Timeline */
     .timeline-content {
         padding: var(--spacing-md);
     }
 }
 
-
 @media (min-width: 1024px) {
-    /* Larger containers on big screens */
     .container {
         padding: 0 var(--spacing-xl);
     }
     
-    /* Game Detail Grid adjustments */
     .game-detail-grid {
         gap: var(--spacing-2xl);
     }
     
-    /* Games Grid - more columns */
     .games-grid {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
@@ -223,7 +192,6 @@
     }
 }
 
-
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
@@ -232,7 +200,6 @@
         scroll-behavior: auto !important;
     }
 }
-
 
 @media (prefers-contrast: high) {
     :root {
