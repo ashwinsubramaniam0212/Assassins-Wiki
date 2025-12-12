@@ -1,15 +1,4 @@
-/**
- * RENDER MODULE
- * Contains functions to render data into HTML
- */
-
-/**
- * Render a game card
- * @param {Object} game - The game object to render
- * @returns {string} HTML string for the game card
- */
 function renderGameCard(game) {
-    // Handle missing image with placeholder
     var imageUrl = game.image || 'https://via.placeholder.com/300x200?text=' + encodeURIComponent(game.title);
     
     return `
@@ -31,12 +20,6 @@ function renderGameCard(game) {
     `;
 }
 
-/**
- * Render a character card
- * @param {Object} character - The character object to render
- * @param {string} gameTitle - The title of the game (optional)
- * @returns {string} HTML string for the character card
- */
 function renderCharacterCard(character, gameTitle) {
     var imageUrl = character.image || 'https://via.placeholder.com/250x250?text=' + encodeURIComponent(character.name);
     var gameInfo = gameTitle ? `<p class="character-card-game">From: ${gameTitle}</p>` : '';
@@ -58,17 +41,10 @@ function renderCharacterCard(character, gameTitle) {
     `;
 }
 
-/**
- * Render full game detail page
- * @param {Object} game - The game object
- * @param {Array} relatedCharacters - Array of character objects from this game
- * @returns {string} HTML string for the game detail page
- */
 function renderGameDetail(game, relatedCharacters) {
     var imageUrl = game.image || 'https://via.placeholder.com/1200x400?text=' + encodeURIComponent(game.title);
     var platforms = game.platforms.join(', ');
     
-    // Build related characters section if any exist
     var charactersSection = '';
     if (relatedCharacters && relatedCharacters.length > 0) {
         var characterCards = relatedCharacters.map(function(char) {
@@ -134,12 +110,6 @@ function renderGameDetail(game, relatedCharacters) {
     `;
 }
 
-/**
- * Render a search result item
- * @param {Object} item - The item (game or character)
- * @param {string} type - Either 'game' or 'character'
- * @returns {string} HTML string for search result
- */
 function renderSearchResult(item, type) {
     if (type === 'game') {
         return `
