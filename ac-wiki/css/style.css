@@ -1,49 +1,34 @@
-/* ========================================
-   CSS VARIABLES (Design Tokens)
-   ======================================== */
 :root {
-    /* Colors - Assassin's Creed Theme */
-    --color-primary: #C9A961;       /* Gold */
-    --color-secondary: #1A1A1A;     /* Almost Black */
-    --color-accent: #8B0000;        /* Dark Red */
-    --color-bg: #F5F5F5;            /* Light Gray Background */
-    --color-text: #333333;          /* Dark Gray Text */
-    --color-border: #DDDDDD;        /* Light Border */
+    --color-primary: #C9A961;
+    --color-secondary: #1A1A1A;
+    --color-accent: #8B0000;
+    --color-bg: #F5F5F5;
+    --color-text: #333333;
+    --color-border: #DDDDDD;
     --color-white: #FFFFFF;
     --color-light-gray: #F9F9F9;
     --color-success: #28A745;
-    
-    /* Typography */
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --font-base: 16px;
-    --font-small: 0.875rem;         /* 14px */
-    --font-medium: 1rem;             /* 16px */
-    --font-large: 1.25rem;           /* 20px */
-    --font-xl: 1.75rem;              /* 28px */
-    --font-2xl: 2.5rem;              /* 40px */
-    --font-3xl: 3rem;                /* 48px */
-    
-    /* Spacing */
-    --spacing-xs: 0.25rem;           /* 4px */
-    --spacing-sm: 0.5rem;            /* 8px */
-    --spacing-md: 1rem;              /* 16px */
-    --spacing-lg: 1.5rem;            /* 24px */
-    --spacing-xl: 2rem;              /* 32px */
-    --spacing-2xl: 3rem;             /* 48px */
-    
-    /* Layout */
+    --font-small: 0.875rem;
+    --font-medium: 1rem;
+    --font-large: 1.25rem;
+    --font-xl: 1.75rem;
+    --font-2xl: 2.5rem;
+    --font-3xl: 3rem;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
     --container-max-width: 1200px;
     --border-radius: 8px;
     --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
-    
-    /* Transitions */
     --transition-speed: 0.3s;
 }
 
-/* ========================================
-   RESET & BASE STYLES
-   ======================================== */
 * {
     margin: 0;
     padding: 0;
@@ -62,9 +47,6 @@ body {
     background-color: var(--color-bg);
 }
 
-/* ========================================
-   TYPOGRAPHY
-   ======================================== */
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
     margin-bottom: var(--spacing-md);
@@ -92,9 +74,6 @@ a:focus {
     outline-offset: 2px;
 }
 
-/* ========================================
-   SKIP LINK (Accessibility)
-   ======================================== */
 .skip-link {
     position: absolute;
     top: -40px;
@@ -111,18 +90,12 @@ a:focus {
     outline: 3px solid var(--color-primary);
 }
 
-/* ========================================
-   CONTAINER
-   ======================================== */
 .container {
     max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 0 var(--spacing-md);
 }
 
-/* ========================================
-   NAVIGATION BAR
-   ======================================== */
 .navbar {
     background-color: var(--color-secondary);
     color: var(--color-white);
@@ -175,7 +148,6 @@ a:focus {
     color: var(--color-secondary);
 }
 
-/* Hamburger Menu Button (Mobile) */
 .nav-toggle {
     display: none;
     background: none;
@@ -207,9 +179,6 @@ a:focus {
 .hamburger::before { top: -8px; }
 .hamburger::after { bottom: -8px; }
 
-/* ========================================
-   SEARCH BAR
-   ======================================== */
 .search-container {
     position: relative;
 }
@@ -263,9 +232,6 @@ a:focus {
     border-bottom: none;
 }
 
-/* ========================================
-   HERO SECTION
-   ======================================== */
 .hero {
     background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
     color: var(--color-white);
@@ -304,9 +270,6 @@ a:focus {
     color: var(--color-primary);
 }
 
-/* ========================================
-   PAGE HEADER
-   ======================================== */
 .page-header {
     background-color: var(--color-secondary);
     color: var(--color-white);
@@ -324,9 +287,6 @@ a:focus {
     font-size: var(--font-large);
 }
 
-/* ========================================
-   SECTIONS
-   ======================================== */
 .section {
     padding: var(--spacing-xl) 0;
 }
@@ -347,9 +307,6 @@ a:focus {
     margin: var(--spacing-md) auto 0;
 }
 
-/* ========================================
-   FOOTER
-   ======================================== */
 .footer {
     background-color: var(--color-secondary);
     color: var(--color-white);
@@ -367,9 +324,6 @@ a:focus {
     color: var(--color-border);
 }
 
-/* ========================================
-   BACK TO TOP BUTTON
-   ======================================== */
 .back-to-top {
     position: fixed;
     bottom: 30px;
@@ -401,9 +355,6 @@ a:focus {
     display: flex;
 }
 
-/* ========================================
-   UTILITY CLASSES
-   ======================================== */
 .loading,
 .loading-page {
     text-align: center;
