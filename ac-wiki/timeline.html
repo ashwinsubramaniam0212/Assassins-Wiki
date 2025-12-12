@@ -6,16 +6,13 @@
     <title>Timeline - Assassin's Creed Wiki</title>
     <meta name="description" content="Explore the complete timeline of Assassin's Creed games and historical events.">
     
-    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- Skip to main content link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Navigation Bar -->
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container nav-container">
             <div class="nav-brand">
@@ -46,9 +43,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main id="main-content" role="main">
-        <!-- Page Header -->
         <header class="page-header">
             <div class="container">
                 <h1>Release Timeline</h1>
@@ -56,18 +51,15 @@
             </div>
         </header>
 
-        <!-- Timeline Section -->
         <section class="section">
             <div class="container">
                 <div id="timeline-container" class="timeline">
-                    <!-- Timeline will be loaded here by JavaScript -->
                     <div class="loading">Loading timeline...</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 AC Wiki - Fan Project. Not affiliated with Ubisoft.</p>
@@ -75,19 +67,15 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
 
-    <!-- JavaScript Files -->
     <script src="js/data-loader.js"></script>
     <script src="js/render.js"></script>
     <script src="js/search.js"></script>
     <script src="js/nav.js"></script>
     <script>
-        // Page-specific JavaScript for timeline.html
         loadData()
             .then(data => {
-                // Sort timeline by year
                 const timelineEvents = data.timeline.sort((a, b) => a.year - b.year);
                 displayTimeline(timelineEvents);
             })
@@ -96,7 +84,6 @@
                     '<p class="error">Error loading timeline. Please refresh the page.</p>';
             });
         
-        // Display timeline
         function displayTimeline(events) {
             const container = document.getElementById('timeline-container');
             
