@@ -1,6 +1,3 @@
-/* ========================================
-   GAME CARDS
-   ======================================== */
 .games-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -67,9 +64,6 @@
     color: var(--color-accent);
 }
 
-/* ========================================
-   GAME DETAIL PAGE
-   ======================================== */
 .game-detail {
     background-color: var(--color-white);
     border-radius: var(--border-radius);
@@ -174,9 +168,6 @@
     border-color: var(--color-primary);
 }
 
-/* ========================================
-   CHARACTER CARDS
-   ======================================== */
 .characters-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -236,9 +227,6 @@
     font-size: var(--font-small);
 }
 
-/* ========================================
-   FILTER BAR
-   ======================================== */
 .filter-bar {
     display: flex;
     gap: var(--spacing-md);
@@ -270,9 +258,6 @@
     border-color: var(--color-primary);
 }
 
-/* ========================================
-   STATS SECTION
-   ======================================== */
 .stats-section {
     background-color: var(--color-secondary);
     color: var(--color-white);
@@ -308,9 +293,6 @@
     color: var(--color-white);
 }
 
-/* ========================================
-   TIMELINE
-   ======================================== */
 .timeline {
     position: relative;
     padding: var(--spacing-xl) 0;
@@ -407,9 +389,6 @@
     color: var(--color-secondary);
 }
 
-/* ========================================
-   RELATED CHARACTERS SECTION
-   ======================================== */
 .related-characters {
     margin-top: var(--spacing-2xl);
 }
