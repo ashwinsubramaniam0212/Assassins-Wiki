@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assassin's Creed Wiki - Home</title>
+    <meta name="description" content="Explore the Assassin's Creed universe with detailed information about games, characters, and timeline.">
+    <style>
+        :root {
+            --color-primary: #C9A961;
+            --color-secondary: #1A1A1A;
+            --color-accent: #8B0000;
+            --color-bg: #F5F5F5;
+            --color-text: #333333;
+            --color-border: #DDDDDD;
+            --color-white: #FFFFFF;
+            --color-light-gray: #F9F9F9;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--color-secondary);
+            color: var(--color-white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--color-white);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all var(--transition-speed);
+            text-decoration: none;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-white);
+            position: relative;
+            transition: all var(--transition-speed);
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-white);
+            position: absolute;
+            transition: all var(--transition-speed);
+        }
+
+        .hamburger::before { top: -8px; }
+        .hamburger::after { bottom: -8px; }
+
+        /* Search */
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 250px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1001;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 1rem;
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .search-result-item:hover {
+            background-color: var(--color-light-gray);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+            color: var(--color-white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-primary);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all var(--transition-speed);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--color-primary);
+        }
+
+        .tab-btn.active {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border-color: var(--color-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 1.5rem;
+            background-color: var(--color-white);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filter-bar label {
+            font-weight: 600;
+            color: var(--color-secondary);
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        /* Grid Layouts */
+        .games-grid,
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--color-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all var(--transition-speed);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .card-year {
+            display: inline-block;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-secondary);
+        }
+
+        .card-description {
+            color: var(--color-text);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .card-role {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Game Detail */
+        .game-detail {
+            background-color: var(--color-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .game-detail-hero {
+            height: 300px;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .game-detail-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        }
+
+        .game-detail-hero-content {
+            position: relative;
+            z-index: 1;
+            color: var(--color-white);
+        }
+
+        .game-detail-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-detail-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-primary);
+        }
+
+        .game-detail-content {
+            padding: 2rem;
+        }
+
+        .game-detail-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .game-info-list {
+            list-style: none;
+            background-color: var(--color-light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .game-info-list dt {
+            font-weight: bold;
+            color: var(--color-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .game-info-list dd {
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--color-primary);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+        }
+
+        .timeline-item.left {
+            justify-content: flex-start;
+            padding-right: calc(50% + 2rem);
+        }
+
+        .timeline-item.right {
+            justify-content: flex-end;
+            padding-left: calc(50% + 2rem);
+        }
+
+        .timeline-content {
+            background-color: var(--color-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            max-width: 400px;
+        }
+
+        .timeline-year {
+            display: inline-block;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            padding: 0.25rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: var(--color-accent);
+            color: var(--color-white);
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--color-white);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all var(--transition-speed);
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.25rem;
+            color: var(--color-secondary);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-speed);
+        }
+
+        .btn:hover {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.75rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all var(--transition-speed);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-secondary);
+            color: var(--color-white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-note {
+            font-size: 0.875rem;
+            color: var(--color-border);
+        }
+
+        /* Utility */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--color-text);
+            font-size: 1.25rem;
+        }
+
+        .error {
+            text-align: center;
+            padding: 3rem;
+            color: var(--color-accent);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text);
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--color-secondary);
+                padding: 1rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .search-container {
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .game-detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item.left,
+            .timeline-item.right {
+                justify-content: flex-start;
+                padding-left: 50px;
+                padding-right: 0;
+            }
+
+            .games-grid,
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .game-detail-hero {
+                height: 200px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <a href="#" class="logo">AC Wiki</a>
+            </div>
+            
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="games">Games</a></li>
+                <li><a href="#" class="nav-link" data-page="characters">Characters</a></li>
+                <li><a href="#" class="nav-link" data-page="timeline">Timeline</a></li>
+            </ul>
+            
+            <div class="search-container">
+                <input 
+                    type="search" 
+                    id="search-input" 
+                    class="search-input" 
+                    placeholder="Search games or characters..."
+                    aria-label="Search"
+                >
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- Content will be dynamically loaded here -->
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AC Wiki - Fan Project. Not affiliated with Ubisoft.</p>
+            <p class="footer-note">All content is for educational purposes. Assassin's Creed is a trademark of Ubisoft.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <script>
+        // Complete Database
+        const AC_WIKI_DATA = {
+            games: [
+                {
+                    id: "ac1",
+                    title: "Assassin's Creed",
+                    year: 2007,
+                    platforms: ["Xbox 360", "PS3", "PC"],
+                    setting: "Third Crusade, Holy Land",
+                    protagonist: "Altaïr Ibn-La'Ahad",
+                    description: "The first game in the series follows Altaïr, a skilled assassin during the Third Crusade who must redeem himself.",
+                    icon: "AC"
+                },
+                {
+                    id: "ac2",
+                    title: "Assassin's Creed II",
+                    year: 2009,
+                    platforms: ["Xbox 360", "PS3", "PC"],
+                    setting: "Renaissance Italy",
+                    protagonist: "Ezio Auditore",
+                    description: "Follow Ezio's journey from a young nobleman to a Master Assassin in Renaissance Italy.",
+                    icon: "II"
+                },
+                {
+                    id: "ac_brotherhood",
+                    title: "Assassin's Creed: Brotherhood",
+                    year: 2010,
+                    platforms: ["Xbox 360", "PS3", "PC"],
+                    setting: "Rome, Renaissance Italy",
+                    protagonist: "Ezio Auditore",
+                    description: "Ezio travels to Rome to rebuild the Assassin Brotherhood and take down the Borgia family.",
+                    icon: "BH"
+                },
+                {
+                    id: "ac3",
+                    title: "Assassin's Creed III",
+                    year: 2012,
+                    platforms: ["Xbox 360", "PS3", "Wii U", "PC"],
+                    setting: "American Revolution",
+                    protagonist: "Ratonhnhaké:ton (Connor)",
+                    description: "Experience the American Revolution through the eyes of Connor, a Native American assassin.",
+                    icon: "III"
+                },
+                {
+                    id: "ac_black_flag",
+                    title: "Assassin's Creed IV: Black Flag",
+                    year: 2013,
+                    platforms: ["Xbox 360", "Xbox One", "PS3", "PS4", "Wii U", "PC"],
+                    setting: "Caribbean, Golden Age of Piracy",
+                    protagonist: "Edward Kenway",
+                    description: "Sail the Caribbean as Edward Kenway, a pirate who becomes entangled with the Assassin Order.",
+                    icon: "IV"
+                },
+                {
+                    id: "ac_unity",
+                    title: "Assassin's Creed Unity",
+                    year: 2014,
+                    platforms: ["Xbox One", "PS4", "PC"],
+                    setting: "French Revolution, Paris",
+                    protagonist: "Arno Dorian",
+                    description: "Navigate the chaos of the French Revolution as Arno Dorian seeks redemption in Paris.",
+                    icon: "UN"
+                },
+                {
+                    id: "ac_syndicate",
+                    title: "Assassin's Creed Syndicate",
+                    year: 2015,
+                    platforms: ["Xbox One", "PS4", "PC"],
+                    setting: "Victorian London",
+                    protagonist: "Jacob and Evie Frye",
+                    description: "Control twin assassins Jacob and Evie Frye as they liberate London from Templar control.",
+                    icon: "SY"
+                },
+                {
+                    id: "ac_origins",
+                    title: "Assassin's Creed Origins",
+                    year: 2017,
+                    platforms: ["Xbox One", "PS4", "PC"],
+                    setting: "Ancient Egypt, Ptolemaic Period",
+                    protagonist: "Bayek of Siwa",
+                    description: "Witness the origin of the Assassin Brotherhood in Ancient Egypt with Bayek of Siwa.",
+                    icon: "OR"
+                },
+                {
+                    id: "ac_odyssey",
+                    title: "Assassin's Creed Odyssey",
+                    year: 2018,
+                    platforms: ["Xbox One", "PS4", "PC", "Switch"],
+                    setting: "Ancient Greece, Peloponnesian War",
+                    protagonist: "Kassandra or Alexios",
+                    description: "Choose your hero and explore Ancient Greece during the Peloponnesian War.",
+                    icon: "OD"
+                },
+                {
+                    id: "ac_valhalla",
+                    title: "Assassin's Creed Valhalla",
+                    year: 2020,
+                    platforms: ["Xbox One", "Xbox Series X/S", "PS4", "PS5", "PC"],
+                    setting: "Viking Age, England and Norway",
+                    protagonist: "Eivor",
+                    description: "Lead your Viking clan to glory in 9th century England as Eivor, a fierce warrior.",
+                    icon: "VH"
+                }
+            ],
+            characters: [
+                {
+                    id: "char_altair",
+                    name: "Altaïr Ibn-La'Ahad",
+                    gameId: "ac1",
+                    role: "Protagonist",
+                    description: "A member of the Assassin Order during the Third Crusade, known for his skills and arrogance turned wisdom.",
+                    icon: "AL"
+                },
+                {
+                    id: "char_ezio",
+                    name: "Ezio Auditore da Firenze",
+                    gameId: "ac2",
+                    role: "Protagonist",
+                    description: "A Florentine nobleman who becomes a legendary Master Assassin during the Italian Renaissance.",
+                    icon: "EZ"
+                },
+                {
+                    id: "char_leonardo",
+                    name: "Leonardo da Vinci",
+                    gameId: "ac2",
+                    role: "Ally",
+                    description: "The famous Renaissance artist and inventor who becomes a close friend and ally to Ezio.",
+                    icon: "LV"
+                },
+                {
+                    id: "char_connor",
+                    name: "Ratonhnhaké:ton (Connor)",
+                    gameId: "ac3",
+                    role: "Protagonist",
+                    description: "A Native American assassin who fights for freedom during the American Revolution.",
+                    icon: "CO"
+                },
+                {
+                    id: "char_edward",
+                    name: "Edward Kenway",
+                    gameId: "ac_black_flag",
+                    role: "Protagonist",
+                    description: "A Welsh pirate turned assassin who sails the Caribbean during the Golden Age of Piracy.",
+                    icon: "EK"
+                },
+                {
+                    id: "char_arno",
+                    name: "Arno Dorian",
+                    gameId: "ac_unity",
+                    role: "Protagonist",
+                    description: "A French nobleman turned assassin seeking redemption during the French Revolution.",
+                    icon: "AR"
+                },
+                {
+                    id: "char_jacob",
+                    name: "Jacob Frye",
+                    gameId: "ac_syndicate",
+                    role: "Protagonist",
+                    description: "A brash and impulsive assassin who leads the Rooks gang in Victorian London.",
+                    icon: "JF"
+                },
+                {
+                    id: "char_evie",
+                    name: "Evie Frye",
+                    gameId: "ac_syndicate",
+                    role: "Protagonist",
+                    description: "Jacob's twin sister, a tactical and stealth-focused assassin in Victorian London.",
+                    icon: "EF"
+                },
+                {
+                    id: "char_bayek",
+                    name: "Bayek of Siwa",
+                    gameId: "ac_origins",
+                    role: "Protagonist",
+                    description: "A Medjay protector who becomes one of the founders of the Hidden Ones in Ancient Egypt.",
+                    icon: "BA"
+                },
+                {
+                    id: "char_kassandra",
+                    name: "Kassandra",
+                    gameId: "ac_odyssey",
+                    role: "Protagonist",
+                    description: "A Spartan mercenary with a mysterious past who becomes a legendary hero in Ancient Greece.",
+                    icon: "KA"
+                },
+                {
+                    id: "char_eivor",
+                    name: "Eivor Varinsdottir",
+                    gameId: "ac_valhalla",
+                    role: "Protagonist",
+                    description: "A fierce Viking warrior who leads their clan to settle in England during the 9th century.",
+                    icon: "EI"
+                },
+                {
+                    id: "char_rodrigo",
+                    name: "Rodrigo Borgia",
+                    gameId: "ac2",
+                    role: "Antagonist",
+                    description: "The Grand Master of the Italian Templars and later Pope Alexander VI.",
+                    icon: "RB"
+                }
+            ],
+            timeline: [
+                { year: 2007, event: "Assassin's Creed released", type: "game" },
+                { year: 2009, event: "Assassin's Creed II released", type: "game" },
+                { year: 2010, event: "Brotherhood released", type: "game" },
+                { year: 2011, event: "Revelations released", type: "game" },
+                { year: 2012, event: "Assassin's Creed III released", type: "game" },
+                { year: 2013, event: "Black Flag released", type: "game" },
+                { year: 2014, event: "Unity released", type: "game" },
+                { year: 2015, event: "Syndicate released", type: "game" },
+                { year: 2017, event: "Origins released, RPG mechanics introduced", type: "game" },
+                { year: 2018, event: "Odyssey released", type: "game" },
+                { year: 2020, event: "Valhalla released", type: "game" }
+            ]
+        };
+
+        // State Management
+        let currentPage = 'home';
+        let currentGameDetail = null;
+        let searchTimeout = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavigation();
+            initSearch();
+            initBackToTop();
+            renderPage('home');
+        });
+
+        // Navigation
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.dataset.page;
+                    
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                    
+                    renderPage(page);
+                });
+            });
+
+            if (navToggle) {
+                navToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        }
+
+        // Search
+        function initSearch() {
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+
+                clearTimeout(searchTimeout);
+
+                if (query.length === 0) {
+                    searchResults.classList.remove('active');
+                    return;
+                }
+
+                searchTimeout = setTimeout(() => {
+                    performSearch(query);
+                }, 300);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.remove('active');
+                }
+            });
+        }
+
+        function performSearch(query) {
+            const lowerQuery = query.toLowerCase();
+            const searchResults = document.getElementById('search-results');
+
+            const games = AC_WIKI_DATA.games.filter(g =>
+                g.title.toLowerCase().includes(lowerQuery) ||
+                g.description.toLowerCase().includes(lowerQuery)
+            );
+
+            const characters = AC_WIKI_DATA.characters.filter(c =>
+                c.name.toLowerCase().includes(lowerQuery) ||
+                c.description.toLowerCase().includes(lowerQuery)
+            );
+
+            if (games.length === 0 && characters.length === 0) {
+                searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+                searchResults.classList.add('active');
+                return;
+            }
+
+            let html = '';
+
+            games.slice(0, 5).forEach(game => {
+                html += `
+                    <div class="search-result-item" onclick="showGameDetail('${game.id}')">
+                        <strong>${game.title}</strong> (${game.year})<br>
+                        <small>Game</small>
+                    </div>
+                `;
+            });
+
+            characters.slice(0, 5).forEach(char => {
+                html += `
+                    <div class="search-result-item">
+                        <strong>${char.name}</strong><br>
+                        <small>Character - ${char.role}</small>
+                    </div>
+                `;
+            });
+
+            searchResults.innerHTML = html;
+            searchResults.classList.add('active');
+        }
+
+        // Back to Top
+        function initBackToTop() {
+            const backToTop = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Page Rendering
+        function renderPage(page) {
+            currentPage = page;
+            const main = document.getElementById('main-content');
+
+            switch (page) {
+                case 'home':
+                    renderHomePage(main);
+                    break;
+                case 'games':
+                    renderGamesPage(main);
+                    break;
+                case 'characters':
+                    renderCharactersPage(main);
+                    break;
+                case 'timeline':
+                    renderTimelinePage(main);
+                    break;
+                default:
+                    renderHomePage(main);
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Home Page
+        function renderHomePage(container) {
+            const featuredGames = AC_WIKI_DATA.games.slice(0, 6);
+
+            container.innerHTML = `
+                <header class="hero">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Assassin's Creed Wiki</h1>
+                        <p class="hero-subtitle">Explore the complete history of the Assassin Brotherhood</p>
+                    </div>
+                </header>
+
+                <section style="padding: 2rem 0;">
+                    <div class="container">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h3 class="stat-number">${AC_WIKI_DATA.games.length}</h3>
+                                <p class="stat-label">Games</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3 class="stat-number">${AC_WIKI_DATA.characters.length}</h3>
+                                <p class="stat-label">Characters</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3 class="stat-number">${AC_WIKI_DATA.timeline.length}</h3>
+                                <p class="stat-label">Timeline Events</p>
+                            </div>
+                        </div>
+
+                        <h2 style="text-align: center; margin: 3rem 0 2rem; color: var(--color-secondary);">Featured Games</h2>
+                        <div class="games-grid">
+                            ${featuredGames.map(game => renderGameCard(game)).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Games Page
+        function renderGamesPage(container) {
+            container.innerHTML = `
+                <div style="background-color: var(--color-secondary); color: var(--color-white); padding: 2rem 0; margin-bottom: 2rem;">
+                    <div class="container">
+                        <h1>All Games</h1>
+                        <p style="color: var(--color-primary); font-size: 1.25rem;">Explore every title in the Assassin's Creed series</p>
+                    </div>
+                </div>
+
+                <section style="padding: 2rem 0;">
+                    <div class="container">
+                        <div class="filter-bar">
+                            <label for="year-filter">Filter by Year:</label>
+                            <select id="year-filter" class="filter-select">
+                                <option value="all">All Years</option>
+                            </select>
+                            
+                            <label for="sort-select">Sort by:</label>
+                            <select id="sort-select" class="filter-select">
+                                <option value="year-desc">Newest First</option>
+                                <option value="year-asc">Oldest First</option>
+                                <option value="title">Title (A-Z)</option>
+                            </select>
+                        </div>
+
+                        <div id="games-container" class="games-grid">
+                            ${AC_WIKI_DATA.games.map(game => renderGameCard(game)).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            initGamesFilters();
+        }
+
+        function initGamesFilters() {
+            const yearFilter = document.getElementById('year-filter');
+            const sortSelect = document.getElementById('sort-select');
+
+            // Populate year filter
+            const years = [...new Set(AC_WIKI_DATA.games.map(g => g.year))].sort((a, b) => b - a);
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearFilter.appendChild(option);
+            });
+
+            // Filter and sort
+            const applyFilters = () => {
+                let filtered = [...AC_WIKI_DATA.games];
+
+                if (yearFilter.value !== 'all') {
+                    filtered = filtered.filter(g => g.year == yearFilter.value);
+                }
+
+                if (sortSelect.value === 'year-desc') {
+                    filtered.sort((a, b) => b.year - a.year);
+                } else if (sortSelect.value === 'year-asc') {
+                    filtered.sort((a, b) => a.year - b.year);
+                } else if (sortSelect.value === 'title') {
+                    filtered.sort((a, b) => a.title.localeCompare(b.title));
+                }
+
+                const container = document.getElementById('games-container');
+                container.innerHTML = filtered.length > 0
+                    ? filtered.map(game => renderGameCard(game)).join('')
+                    : '<p class="no-results">No games found.</p>';
+            };
+
+            yearFilter.addEventListener('change', applyFilters);
+            sortSelect.addEventListener('change', applyFilters);
+        }
+
+        function renderGameCard(game) {
+            return `
+                <div class="card" onclick="showGameDetail('${game.id}')">
+                    <div class="card-image">${game.icon}</div>
+                    <div class="card-content">
+                        <span class="card-year">${game.year}</span>
+                        <h3 class="card-title">${game.title}</h3>
+                        <p class="card-description">${game.description}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showGameDetail(gameId) {
+            const game = AC_WIKI_DATA.games.find(g => g.id === gameId);
+            if (!game) return;
+
+            const relatedCharacters = AC_WIKI_DATA.characters.filter(c => c.gameId === gameId);
+            const main = document.getElementById('main-content');
+
+            main.innerHTML = `
+                <div class="game-detail">
+                    <div class="game-detail-hero">
+                        <div class="container">
+                            <div class="game-detail-hero-content">
+                                <h1 class="game-detail-title">${game.title}</h1>
+                                <p class="game-detail-subtitle">${game.setting}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="game-detail-content">
+                        <div class="container">
+                            <div class="game-detail-grid">
+                                <div>
+                                    <h2>About the Game</h2>
+                                    <p style="margin-bottom: 2rem;">${game.description}</p>
+                                    
+                                    ${relatedCharacters.length > 0 ? `
+                                        <h2 style="margin-bottom: 1rem;">Characters from this game</h2>
+                                        <div class="characters-grid">
+                                            ${relatedCharacters.map(char => renderCharacterCard(char)).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                
+                                <aside>
+                                    <dl class="game-info-list">
+                                        <dt>Release Year</dt>
+                                        <dd>${game.year}</dd>
+                                        
+                                        <dt>Setting</dt>
+                                        <dd>${game.setting}</dd>
+                                        
+                                        <dt>Protagonist</dt>
+                                        <dd>${game.protagonist}</dd>
+                                        
+                                        <dt>Platforms</dt>
+                                        <dd>${game.platforms.join(', ')}</dd>
+                                    </dl>
+                                </aside>
+                            </div>
+                            
+                            <button class="btn" onclick="renderPage('games')">← Back to All Games</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Characters Page
+        function renderCharactersPage(container) {
+            container.innerHTML = `
+                <div style="background-color: var(--color-secondary); color: var(--color-white); padding: 2rem 0; margin-bottom: 2rem;">
+                    <div class="container">
+                        <h1>Characters</h1>
+                        <p style="color: var(--color-primary); font-size: 1.25rem;">Meet the legendary assassins, allies, and enemies</p>
+                    </div>
+                </div>
+
+                <section style="padding: 2rem 0;">
+                    <div class="container">
+                        <div class="filter-bar">
+                            <label for="game-filter">Filter by Game:</label>
+                            <select id="game-filter" class="filter-select">
+                                <option value="all">All Games</option>
+                            </select>
+                            
+                            <label for="role-filter">Filter by Role:</label>
+                            <select id="role-filter" class="filter-select">
+                                <option value="all">All Roles</option>
+                                <option value="Protagonist">Protagonist</option>
+                                <option value="Ally">Ally</option>
+                                <option value="Antagonist">Antagonist</option>
+                            </select>
+                        </div>
+
+                        <div id="characters-container" class="characters-grid">
+                            ${AC_WIKI_DATA.characters.map(char => renderCharacterCard(char)).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            initCharactersFilters();
+        }
+
+        function initCharactersFilters() {
+            const gameFilter = document.getElementById('game-filter');
+            const roleFilter = document.getElementById('role-filter');
+
+            // Populate game filter
+            AC_WIKI_DATA.games.forEach(game => {
+                const option = document.createElement('option');
+                option.value = game.id;
+                option.textContent = game.title;
+                gameFilter.appendChild(option);
+            });
+
+            // Filter
+            const applyFilters = () => {
+                let filtered = [...AC_WIKI_DATA.characters];
+
+                if (gameFilter.value !== 'all') {
+                    filtered = filtered.filter(c => c.gameId === gameFilter.value);
+                }
+
+                if (roleFilter.value !== 'all') {
+                    filtered = filtered.filter(c => c.role === roleFilter.value);
+                }
+
+                const container = document.getElementById('characters-container');
+                container.innerHTML = filtered.length > 0
+                    ? filtered.map(char => renderCharacterCard(char)).join('')
+                    : '<p class="no-results">No characters found.</p>';
+            };
+
+            gameFilter.addEventListener('change', applyFilters);
+            roleFilter.addEventListener('change', applyFilters);
+        }
+
+        function renderCharacterCard(character) {
+            const game = AC_WIKI_DATA.games.find(g => g.id === character.gameId);
+            return `
+                <div class="card">
+                    <div class="card-image">${character.icon}</div>
+                    <div class="card-content">
+                        <h3 class="card-title">${character.name}</h3>
+                        <span class="card-role">${character.role}</span>
+                        ${game ? `<p style="font-size: 0.875rem; color: var(--color-primary); margin: 0.5rem 0;">From: ${game.title}</p>` : ''}
+                        <p class="card-description">${character.description}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Timeline Page
+        function renderTimelinePage(container) {
+            container.innerHTML = `
+                <div style="background-color: var(--color-secondary); color: var(--color-white); padding: 2rem 0; margin-bottom: 2rem;">
+                    <div class="container">
+                        <h1>Release Timeline</h1>
+                        <p style="color: var(--color-primary); font-size: 1.25rem;">The chronological history of Assassin's Creed games</p>
+                    </div>
+                </div>
+
+                <section style="padding: 2rem 0;">
+                    <div class="container">
+                        <div class="timeline">
+                            ${AC_WIKI_DATA.timeline.map((event, index) => `
+                                <div class="timeline-item ${index % 2 === 0 ? 'left' : 'right'}">
+                                    <div class="timeline-content">
+                                        <div class="timeline-year">${event.year}</div>
+                                        <h3 style="color: var(--color-secondary); margin-bottom: 0.5rem;">${event.event}</h3>
+                                        <span class="timeline-badge">${event.type}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+    </script>
+</body>
