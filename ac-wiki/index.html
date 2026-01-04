@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Games - Assassin's Creed Wiki</title>
-    <meta name="description" content="Browse all Assassin's Creed games with detailed information about each title in the series.">
+    <title>Assassin's Creed Wiki - Home</title>
+    <meta name="description" content="Explore the Assassin's Creed universe with detailed information about games, characters, and locations.">
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
@@ -24,8 +24,8 @@
             </button>
             
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="games.html" class="nav-link active">Games</a></li>
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
                 <li><a href="characters.html" class="nav-link">Characters</a></li>
                 <li><a href="timeline.html" class="nav-link">Timeline</a></li>
             </ul>
@@ -44,35 +44,37 @@
     </nav>
 
     <main id="main-content" role="main">
-        <header class="page-header">
-            <div class="container">
-                <h1>All Games</h1>
-                <p>Explore every title in the Assassin's Creed series</p>
+        <header class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Assassin's Creed Wiki</h1>
+                <p class="hero-subtitle">Explore the complete history of the Assassin Brotherhood</p>
             </div>
         </header>
 
-        <section class="section">
+        <section class="section featured-section">
             <div class="container">
-                <div class="filter-bar">
-                    <label for="year-filter">Filter by Year:</label>
-                    <select id="year-filter" class="filter-select">
-                        <option value="all">All Years</option>
-                    </select>
-                    
-                    <label for="sort-select">Sort by:</label>
-                    <select id="sort-select" class="filter-select">
-                        <option value="year-desc">Newest First</option>
-                        <option value="year-asc">Oldest First</option>
-                        <option value="title">Title (A-Z)</option>
-                    </select>
+                <h2 class="section-title">Featured Games</h2>
+                <div id="featured-games" class="games-grid">
+                    <div class="loading">Loading games...</div>
                 </div>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section stats-section">
             <div class="container">
-                <div id="games-container" class="games-grid">
-                    <div class="loading">Loading games...</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 class="stat-number" id="total-games">--</h3>
+                        <p class="stat-label">Games</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="stat-number" id="total-characters">--</h3>
+                        <p class="stat-label">Characters</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="stat-number" id="total-locations">--</h3>
+                        <p class="stat-label">Locations</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -91,66 +93,7 @@
     <script src="js/render.js"></script>
     <script src="js/search.js"></script>
     <script src="js/nav.js"></script>
-    <script>
-        let allGames = [];
-        
-        loadData()
-            .then(data => {
-                allGames = data.games;
-                populateYearFilter(allGames);
-                displayGames(allGames);
-                
-                document.getElementById('year-filter').addEventListener('change', filterAndSort);
-                document.getElementById('sort-select').addEventListener('change', filterAndSort);
-            })
-            .catch(error => {
-                document.getElementById('games-container').innerHTML = 
-                    '<p class="error">Error loading games. Please refresh the page.</p>';
-            });
-        
-        function populateYearFilter(games) {
-            const years = [...new Set(games.map(g => g.year))].sort((a, b) => b - a);
-            const select = document.getElementById('year-filter');
-            
-            years.forEach(year => {
-                const option = document.createElement('option');
-                option.value = year;
-                option.textContent = year;
-                select.appendChild(option);
-            });
-        }
-        
-        function filterAndSort() {
-            const yearFilter = document.getElementById('year-filter').value;
-            const sortBy = document.getElementById('sort-select').value;
-            
-            let filtered = allGames;
-            if (yearFilter !== 'all') {
-                filtered = allGames.filter(g => g.year == yearFilter);
-            }
-            
-            let sorted = [...filtered];
-            if (sortBy === 'year-desc') {
-                sorted.sort((a, b) => b.year - a.year);
-            } else if (sortBy === 'year-asc') {
-                sorted.sort((a, b) => a.year - b.year);
-            } else if (sortBy === 'title') {
-                sorted.sort((a, b) => a.title.localeCompare(b.title));
-            }
-            
-            displayGames(sorted);
-        }
-        
-        function displayGames(games) {
-            const container = document.getElementById('games-container');
-            
-            if (games.length === 0) {
-                container.innerHTML = '<p class="no-results">No games found.</p>';
-                return;
-            }
-            
-            container.innerHTML = games.map(game => renderGameCard(game)).join('');
-        }
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
+
