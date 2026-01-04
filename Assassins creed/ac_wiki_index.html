@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assassin's Creed Wiki - Home</title>
+    <meta name="description" content="Complete Assassin's Creed Wiki with games, characters, timeline, and detailed information.">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <a class="logo" onclick="renderPage('home')">AC Wiki</a>
+            </div>
+            
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            
+            <ul class="nav-menu">
+                <li><a class="nav-link active" data-page="home">Home</a></li>
+                <li><a class="nav-link" data-page="games">Games</a></li>
+                <li><a class="nav-link" data-page="characters">Characters</a></li>
+                <li><a class="nav-link" data-page="timeline">Timeline</a></li>
+            </ul>
+            
+            <div class="search-container">
+                <input 
+                    type="search" 
+                    id="search-input" 
+                    class="search-input" 
+                    placeholder="Search games or characters..."
+                    aria-label="Search"
+                >
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content"></main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AC Wiki - Fan Project. Not affiliated with Ubisoft.</p>
+            <p class="footer-note">All content is for educational purposes. Assassin's Creed is a trademark of Ubisoft.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <!-- JavaScript Files -->
+    <script src="js/data.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/pages.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

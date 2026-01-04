@@ -1,0 +1,221 @@
+/* ==========================================
+   Assassin's Creed Wiki - Responsive Styles
+   ========================================== */
+
+/* ==========================================
+   Tablet and Mobile (768px and below)
+   ========================================== */
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: var(--color-secondary);
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .search-container {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .game-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-item.left,
+    .timeline-item.right {
+        justify-content: flex-start;
+        padding-left: 50px;
+        padding-right: 0;
+    }
+
+    .games-grid,
+    .characters-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+}
+
+/* ==========================================
+   Mobile Only (576px and below)
+   ========================================== */
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .game-detail-hero {
+        height: 200px;
+        padding: 1rem;
+    }
+
+    .game-detail-title {
+        font-size: 1.5rem;
+    }
+
+    .game-detail-subtitle {
+        font-size: 1rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .back-to-top {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .timeline-content {
+        padding: 1rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.75rem;
+    }
+
+    .page-header p {
+        font-size: 1rem;
+    }
+}
+
+/* ==========================================
+   Desktop Large (1024px and above)
+   ========================================== */
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 2rem;
+    }
+
+    .games-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .game-detail-grid {
+        gap: 3rem;
+    }
+}
+
+/* ==========================================
+   Desktop Extra Large (1440px and above)
+   ========================================== */
+
+@media (min-width: 1440px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .container {
+        max-width: 1400px;
+    }
+}
+
+/* ==========================================
+   Accessibility - Reduced Motion
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================
+   Accessibility - High Contrast
+   ========================================== */
+
+@media (prefers-contrast: high) {
+    :root {
+        --color-primary: #FFD700;
+        --color-text: #000000;
+        --color-bg: #FFFFFF;
+    }
+
+    .card,
+    .game-detail,
+    .stat-card {
+        border: 2px solid var(--color-text);
+    }
+}
+
+/* ==========================================
+   Print Styles
+   ========================================== */
+
+@media print {
+    .navbar,
+    .search-container,
+    .back-to-top,
+    .footer,
+    .filter-bar {
+        display: none;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    .card,
+    .stat-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .game-detail-hero {
+        height: 200px;
+    }
+}
