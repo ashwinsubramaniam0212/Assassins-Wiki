@@ -1,0 +1,93 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assassin's Creed Wiki - Complete Encyclopedia</title>
+    <meta name="description" content="Complete encyclopedia of Assassin's Creed franchise - games, characters, timeline, and detailed information.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <h1 class="site-title">Assassin's Creed Wiki</h1>
+            <p class="site-subtitle">Nothing is true. Everything is permitted.</p>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="container nav-container">
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="games">Games</a></li>
+                <li><a href="#" class="nav-link" data-page="characters">Characters</a></li>
+                <li><a href="#" class="nav-link" data-page="timeline">Timeline</a></li>
+                <li><a href="#" class="nav-link" data-page="gameplay">Gameplay</a></li>
+            </ul>
+            <div class="search-box">
+                <input type="search" id="search-input" class="search-input" placeholder="Search wiki..." aria-label="Search">
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main">
+        <main class="content" id="main-content"></main>
+        
+        <aside class="sidebar">
+            <div class="widget">
+                <h3 class="widget-title">Wiki Statistics</h3>
+                <div class="widget-content">
+                    <div class="stat-item">
+                        <span>Total Games:</span>
+                        <span class="stat-number" id="stat-games">11</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Characters:</span>
+                        <span class="stat-number" id="stat-characters">14</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Timeline Events:</span>
+                        <span class="stat-number" id="stat-timeline">11</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Total Sales:</span>
+                        <span class="stat-number">200M+</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3 class="widget-title">Quick Links</h3>
+                <ul class="widget-list">
+                    <li><a href="#" data-page="games">Browse All Games</a></li>
+                    <li><a href="#" data-page="characters">Character Index</a></li>
+                    <li><a href="#" data-page="timeline">Franchise Timeline</a></li>
+                    <li><a href="#" data-page="gameplay">Gameplay Systems</a></li>
+                </ul>
+            </div>
+
+            <div class="widget">
+                <h3 class="widget-title">Did You Know?</h3>
+                <div class="widget-content">
+                    <p>The first Assassin's Creed game was originally conceived as a Prince of Persia sequel called "Prince of Persia: Assassin".</p>
+                    <p style="margin-top: 1rem;">Altaïr's name means "bird of prey" in Arabic, reflecting the eagle imagery central to the Assassin Brotherhood.</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Assassin's Creed Wiki - Fan Encyclopedia</p>
+            <p>Not affiliated with Ubisoft. All content for educational purposes.</p>
+            <p>Assassin's Creed is a trademark of Ubisoft Entertainment.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <script src="script.js"></script></body>
+</html>
+```
